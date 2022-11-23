@@ -1,4 +1,5 @@
 import 'package:amazon_clone/home.dart';
+import 'package:amazon_clone/layout/screen_layout.dart';
 import 'package:amazon_clone/screens/sign_in_screen.dart';
 import 'package:amazon_clone/utils/color_theme.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -47,16 +48,13 @@ class AmazonClone extends StatelessWidget{
               ),
             );
         } else if (user.hasData){
-          return Home();
-    } else {
-            return const SignInScreen();
-    }
+          return const ScreenLayout();
+        } else {
+          return const SignInScreen();
         }
-    )
-
+      }),
     );
   }
 }
-
 
   

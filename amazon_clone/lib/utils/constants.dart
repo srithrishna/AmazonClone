@@ -11,7 +11,12 @@ const List<String> categoriesList = [
   "Books, Toys",
   "Essential"
 ];
-
+const List<Widget> screens = [
+  HomeScreen(),
+  AccountScreen(),
+  CartScreen(),
+  MoreScreen(),
+];
 const List<String> categoryLogos = [
   "https://m.media-amazon.com/images/I/11uufjN3lYL._SX90_SY90_.png",
   "https://m.media-amazon.com/images/I/116KbsvwCRL._SX90_SY90_.png",
