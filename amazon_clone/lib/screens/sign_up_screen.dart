@@ -1,12 +1,11 @@
-import 'package:amazon_clone/home.dart';
+import 'dart:developer';
 import 'package:amazon_clone/resources/authentication_methods.dart';
 import 'package:amazon_clone/screens/sign_in_screen.dart';
-import 'package:amazon_clone/utils/color_theme.dart';
+import 'package:amazon_clone/utils/color_themes.dart';
 import 'package:amazon_clone/utils/constants.dart';
 import 'package:amazon_clone/utils/utils.dart';
-import 'package:amazon_clone/widget/custom_main_button.dart';
-import 'package:amazon_clone/widget/text_field_widget.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:amazon_clone/widgets/custom_main_button.dart';
+import 'package:amazon_clone/widgets/text_field_widget.dart';
 import 'package:flutter/material.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -17,7 +16,6 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-
   TextEditingController nameController = TextEditingController();
   TextEditingController emailController = TextEditingController();
   TextEditingController addressController = TextEditingController();
@@ -51,7 +49,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   Image.network(
-                    Amazon,
+                    amazonLogo,
                     height: screenSize.height * 0.10,
                   ),
                   SizedBox(
@@ -104,51 +102,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Align(
                               alignment: Alignment.center,
                               child: CustomMainButton(
-                                color: yellowColor,
-                                isLoading: isLoading,
-                                onPressed: () async {
-
-                                  setState(() {
-                                    isLoading = true;
-                                  });
-
-                                  Future auth =  authenticationMethods.signUpUser(
-                                      name: nameController.text,
-                                      address: addressController.text,
-                                      email: emailController.text,
-                                      password: passwordController.text);
-
-                                  auth.then((output) => {
-
-                                    if (output == "success") {
-
-                                      setState((){
-                                        FirebaseAuth.instance.currentUser?.updateDisplayName(nameController.text);
-                                      }),
-
-                                    Navigator.pushReplacement(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (_) => Home(),
-                                        ))
-                                    //functions
-                                  } else {
-                                    //error
-                                    Utils().showSnackBar(
-                                        context: context, content: output)
-                                  }}
-                                  );
-
-                                  setState(() {
-                                    isLoading = false;
-                                  });
-
-                                },
                                 child: const Text(
                                   "Sign Up",
                                   style: TextStyle(
                                       letterSpacing: 0.6, color: Colors.black),
                                 ),
+                                color: yellowColor,
+                                isLoading: isLoading,
+                                onPressed: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  String output =
+                                      await authenticationMethods.signUpUser(
+                                          name: nameController.text,
+                                          address: addressController.text,
+                                          email: emailController.text,
+                                          password: passwordController.text);
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                  if (output == "success") {
+                                    Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                            builder: (_) =>
+                                                const SignInScreen()));
+                                  } else {
+                                    //error
+                                    Utils().showSnackBar(
+                                        context: context, content: output);
+                                  }
+                                },
                               ),
                             )
                           ],
@@ -157,21 +142,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                   ),
                   CustomMainButton(
-                      color: Colors.grey[400]!,
-                      isLoading: false,
-                      onPressed: () {
-                        Navigator.pushReplacement(context,
-                            MaterialPageRoute(builder: (context) {
-                              return const SignInScreen();
-                            }));
-                      },
                       child: const Text(
                         "Back",
                         style: TextStyle(
                           letterSpacing: 0.6,
                           color: Colors.black,
                         ),
-                      ))
+                      ),
+                      color: Colors.grey[400]!,
+                      isLoading: false,
+                      onPressed: () {
+                        Navigator.pushReplacement(context,
+                            MaterialPageRoute(builder: (context) {
+                          return const SignInScreen();
+                        }));
+                      })
                 ],
               ),
             ),

@@ -59,15 +59,15 @@ class _TextFieldWidgetState extends State<TextFieldWidget> {
           decoration: BoxDecoration(boxShadow: [
             isInFocus
                 ? BoxShadow(
-              color: Colors.orange.withOpacity(0.4),
-              blurRadius: 8,
-              spreadRadius: 2,
-            )
+                    color: Colors.orange.withOpacity(0.4),
+                    blurRadius: 8,
+                    spreadRadius: 2,
+                  )
                 : BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 8,
-              spreadRadius: 2,
-            )
+                    color: Colors.black.withOpacity(0.2),
+                    blurRadius: 8,
+                    spreadRadius: 2,
+                  )
           ]),
           child: TextField(
             focusNode: focusNode,

@@ -1,4 +1,6 @@
-import 'package:amazon_clone/utils/color_theme.dart';
+import 'package:amazon_clone/screens/results_screen.dart';
+import 'package:amazon_clone/screens/search_screen.dart';
+import 'package:amazon_clone/utils/color_themes.dart';
 import 'package:amazon_clone/utils/constants.dart';
 import 'package:amazon_clone/utils/utils.dart';
 import 'package:flutter/material.dart';
